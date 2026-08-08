@@ -1,6 +1,6 @@
 # MacroHaxBall
 
-Macro global de teclado para [HaxBall](https://www.haxball.com/): aperte **`/`** (no ABNT2: **`;`**) e o sistema dispara **2–3× `X`** (a tecla de chute). Segurando o gatilho, o disparo continua na taxa máxima (modo hold).
+Macro global de teclado para [HaxBall](https://www.haxball.com/): aperte **`;`** (ponto e vírgula) e o sistema dispara **2–3× `X`** (a tecla de chute). Segurando o gatilho, o disparo continua na taxa máxima (modo hold).
 
 Escrito em **C# (.NET 10)** com hooks nativos do Windows (`WH_KEYBOARD_LL` + `SendInput`). Não injeta nada no jogo — simula teclas reais no nível do sistema, então o navegador as enxerga como entrada de usuário legítima.
 
@@ -11,8 +11,8 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 ## Uso
 
 1. Rode `MacroHaxBall.exe` (cria `config.json` ao lado na primeira execução)
-2. Foque o navegador com o HaxBall e aperte **`/`** (no teclado brasileiro **ABNT2**, a tecla do gatilho é o **`;`** — veja a seção abaixo)
-3. **Segure** a tecla do gatilho (`/` no US, `;` no ABNT2) para disparo contínuo na taxa máxima
+2. Foque o navegador com o HaxBall e aperte **`;`** (ponto e vírgula) → dispara 2–3× `X`
+3. **Segure `;`** para disparo contínuo na taxa máxima
 4. **`F8`** pausa/retoma (útil para digitar a tecla do gatilho de verdade no chat)
 5. **`Ctrl+C`** encerra
 
@@ -20,12 +20,12 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 
 | Campo | Padrão | Descrição |
 |---|---|---|
-| `TriggerKey` | `Oem2` | Tecla gatilho (nomes do enum `Vk`: `Oem2` = tecla física do `/` no layout US — **no ABNT2 é a tecla `;`**, veja abaixo; outros: `X`, `F8`, …) |
+| `TriggerKey` | `Oem2` | Tecla gatilho (nomes do enum `Vk`: `Oem2` = tecla do `;` ponto e vírgula; outros: `X`, `F8`, …) |
 | `TriggerMatch` | `Auto` | Como casar o gatilho: `Vk` (por tecla virtual), `ScanCode` (por tecla física) ou `Auto` (qualquer dos dois — cobre ABNT2) |
 | `TriggerScanCode` | `0x35` | Scan code físico usado nos modos `ScanCode`/`Auto` |
 | `ToggleKey` | `F8` | Liga/desliga o macro |
 | `FireKey` | `X` | Tecla disparada pelo macro |
-| `ConsumeTrigger` | `true` | Bloqueia o `/` de chegar ao jogo (não abre chat/comando) |
+| `ConsumeTrigger` | `true` | Bloqueia a tecla do gatilho de chegar ao jogo (não abre chat/comando) |
 | `RepeatWhileHeld` | `true` | Segurar o gatilho dispara continuamente (modo hold) |
 | `UseRandomCount` | `true` | `true` = 2–3 aleatório (`MinCount`/`MaxCount`); `false` = `FixedCount` |
 | `MinCount` / `MaxCount` | `2` / `3` | Faixa da contagem aleatória |
@@ -33,15 +33,16 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 | `PressMs` | `15` | Duração de cada pressionamento (ms) |
 | `InterKeyDelayMs` | `40` | Intervalo entre pressionamentos (ms) — aumenta se quiser disparo mais lento |
 | `AllowInjected` | `false` | Aceita teclas sintéticas como gatilho (para automação/testes) |
-| `Verbose` | `false` | Loga toda tecla pressionada (debug: descubra o vk/scan do seu `/`) |
+| `Verbose` | `false` | Loga toda tecla pressionada (debug: descubra o vk/scan da sua tecla) |
 
-### Teclado brasileiro (ABNT2) — o gatilho é o `;`, não o `/`
+### Teclado brasileiro (ABNT2)
 
-No layout ABNT2 a tecla física que corresponde ao gatilho padrão (`Oem2`/scan `0x35` — no teclado US é o `/`) é a tecla do **ponto e vírgula (`;`, com `:` no Shift)**, ao lado do Shift direito. O símbolo `/` impresso no seu teclado ABNT2 fica em **outra posição física** e **não dispara o macro** — não é bug.
+O gatilho padrão (`TriggerKey: Oem2` / scan `0x35`) é a tecla do **ponto e vírgula (`;`, com `:` no Shift)**, ao lado do Shift direito.
 
-- **Aperte `;`** (ponto e vírgula) para disparar.
-- Quer usar a tecla `/` do seu teclado mesmo assim? Ative `"Verbose": true`, reinicie e aperte a tecla `/` do seu teclado. O console mostra `down <nome> (vk 0x.., scan 0x..)` — use o `TriggerKey` (modo `Vk`) ou `TriggerScanCode` (modo `ScanCode`) exibidos. O modo `Auto` já cobre o `;` via scan code.
-- Se ainda assim nada disparar, confira o `TriggerMatch`: `Auto` casa por tecla virtual **ou** scan code — o mais robusto para ABNT2.
+- **Aperte `;`** para disparar o macro; segure para disparo contínuo.
+- O símbolo `/` impresso no teclado ABNT2 fica em outra posição física e **não dispara o macro** — não é bug.
+- Para trocar de tecla, ative `"Verbose": true`, reinicie e aperte a tecla desejada: o console mostra `down <nome> (vk 0x.., scan 0x..)` — use o valor em `TriggerKey` (modo `Vk`) ou `TriggerScanCode` (modo `ScanCode`).
+- Se ainda assim nada disparar, confira o `TriggerMatch`: `Auto` casa por tecla virtual **ou** scan code — o mais robusto.
 
 ## Build
 
@@ -57,7 +58,7 @@ dotnet publish MacroHaxBall -c Release -r win-x64 --self-contained -p:PublishSin
 teclado físico / injetado
         │  WH_KEYBOARD_LL (global, thread com message pump)
         ▼
-Program: detecta gatilho → consome o "/" → enfileira burst
+Program: detecta gatilho → consome o ";" → enfileira burst
         ▼
 MacroWorker (thread dedicada, serializada)
         ▼
