@@ -1,0 +1,14 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>macro-key-test</title>
+<input id="t" autofocus style="font-size:48px;width:90%" placeholder="teclas aparecem aqui">
+<script>
+  window.__events = [];
+  const t = document.getElementById('t');
+  const rec = (type) => e => {
+    __events.push({ t: type, k: e.key, vk: e.keyCode });
+    if (type === 'down') t.value += `[${e.key}]`;
+  };
+  addEventListener('keydown', rec('down'));
+  addEventListener('keyup', rec('up'));
+</script>
