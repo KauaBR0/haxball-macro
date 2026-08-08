@@ -40,7 +40,7 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 O gatilho padrão (`TriggerKey: Oem2` / scan `0x35`) é a tecla do **ponto e vírgula (`;`, com `:` no Shift)**, ao lado do Shift direito.
 
 - **Aperte `;`** para disparar o macro; segure para disparo contínuo.
-- O símbolo `/` impresso no teclado ABNT2 fica em outra posição física e **não dispara o macro** — não é bug.
+- O símbolo `/` impresso no teclado ABNT2 fica em outra posição física e **não é o gatilho padrão** — se nada disparar ao apertá-lo, não é bug: o padrão é o `;`. Você pode configurar a tecla `/` (ou qualquer outra) seguindo a dica abaixo.
 - Para trocar de tecla, ative `"Verbose": true`, reinicie e aperte a tecla desejada: o console mostra `down <nome> (vk 0x.., scan 0x..)` — use o valor em `TriggerKey` (modo `Vk`) ou `TriggerScanCode` (modo `ScanCode`).
 - Se ainda assim nada disparar, confira o `TriggerMatch`: `Auto` casa por tecla virtual **ou** scan code — o mais robusto.
 
