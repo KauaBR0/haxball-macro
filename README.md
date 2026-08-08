@@ -1,6 +1,6 @@
 # MacroHaxBall
 
-Macro global de teclado para [HaxBall](https://www.haxball.com/): aperte **`/`** e o sistema dispara **2–3× `X`** (a tecla de chute). Segurando o gatilho, o disparo continua na taxa máxima (modo hold).
+Macro global de teclado para [HaxBall](https://www.haxball.com/): aperte **`/`** (no ABNT2: **`;`**) e o sistema dispara **2–3× `X`** (a tecla de chute). Segurando o gatilho, o disparo continua na taxa máxima (modo hold).
 
 Escrito em **C# (.NET 10)** com hooks nativos do Windows (`WH_KEYBOARD_LL` + `SendInput`). Não injeta nada no jogo — simula teclas reais no nível do sistema, então o navegador as enxerga como entrada de usuário legítima.
 
@@ -12,8 +12,8 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 
 1. Rode `MacroHaxBall.exe` (cria `config.json` ao lado na primeira execução)
 2. Foque o navegador com o HaxBall e aperte **`/`** (no teclado brasileiro **ABNT2**, a tecla do gatilho é o **`;`** — veja a seção abaixo)
-3. **Segure `/`** para disparo contínuo na taxa máxima
-4. **`F8`** pausa/retoma (útil para digitar `/` de verdade no chat)
+3. **Segure** a tecla do gatilho (`/` no US, `;` no ABNT2) para disparo contínuo na taxa máxima
+4. **`F8`** pausa/retoma (útil para digitar a tecla do gatilho de verdade no chat)
 5. **`Ctrl+C`** encerra
 
 ## Configuração (`config.json`)
