@@ -11,7 +11,7 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 ## Uso
 
 1. Rode `MacroHaxBall.exe` (cria `config.json` ao lado na primeira execução)
-2. Foque o navegador com o HaxBall e aperte **`/`** → dispara 2–3× `X`
+2. Foque o navegador com o HaxBall e aperte **`/`** (no teclado brasileiro **ABNT2**, a tecla do gatilho é o **`;`** — veja a seção abaixo)
 3. **Segure `/`** para disparo contínuo na taxa máxima
 4. **`F8`** pausa/retoma (útil para digitar `/` de verdade no chat)
 5. **`Ctrl+C`** encerra
@@ -20,7 +20,7 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 
 | Campo | Padrão | Descrição |
 |---|---|---|
-| `TriggerKey` | `Oem2` | Tecla gatilho (nomes do enum `Vk`: `Oem2` = tecla física do `/`, `X`, `F8`, …) |
+| `TriggerKey` | `Oem2` | Tecla gatilho (nomes do enum `Vk`: `Oem2` = tecla física do `/` no layout US — **no ABNT2 é a tecla `;`**, veja abaixo; outros: `X`, `F8`, …) |
 | `TriggerMatch` | `Auto` | Como casar o gatilho: `Vk` (por tecla virtual), `ScanCode` (por tecla física) ou `Auto` (qualquer dos dois — cobre ABNT2) |
 | `TriggerScanCode` | `0x35` | Scan code físico usado nos modos `ScanCode`/`Auto` |
 | `ToggleKey` | `F8` | Liga/desliga o macro |
@@ -35,9 +35,13 @@ Baixe o exe pronto em [Releases](https://github.com/KauaBR0/haxball-macro/releas
 | `AllowInjected` | `false` | Aceita teclas sintéticas como gatilho (para automação/testes) |
 | `Verbose` | `false` | Loga toda tecla pressionada (debug: descubra o vk/scan do seu `/`) |
 
-### Se o `/` não disparar (ex.: layout ABNT2)
+### Teclado brasileiro (ABNT2) — o gatilho é o `;`, não o `/`
 
-Ative `"Verbose": true`, reinicie e aperte `/`. O console mostra `down <nome> (vk 0x.., scan 0x..)` da sua tecla — ajuste `TriggerKey` e/ou `TriggerScanCode` conforme o exibido (ou use `TriggerMatch: "ScanCode"` com o scan exibido).
+No layout ABNT2 a tecla física que corresponde ao gatilho padrão (`Oem2`/scan `0x35` — no teclado US é o `/`) é a tecla do **ponto e vírgula (`;`, com `:` no Shift)**, ao lado do Shift direito. O símbolo `/` impresso no seu teclado ABNT2 fica em **outra posição física** e **não dispara o macro** — não é bug.
+
+- **Aperte `;`** (ponto e vírgula) para disparar.
+- Quer usar a tecla `/` do seu teclado mesmo assim? Ative `"Verbose": true`, reinicie e aperte a tecla `/` do seu teclado. O console mostra `down <nome> (vk 0x.., scan 0x..)` — use o `TriggerKey` (modo `Vk`) ou `TriggerScanCode` (modo `ScanCode`) exibidos. O modo `Auto` já cobre o `;` via scan code.
+- Se ainda assim nada disparar, confira o `TriggerMatch`: `Auto` casa por tecla virtual **ou** scan code — o mais robusto para ABNT2.
 
 ## Build
 
